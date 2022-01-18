@@ -38,10 +38,15 @@ public class UserController {
             }
     }
 
-
     @DeleteMapping("/users/{id}")
     public String deleteUser(@PathVariable String id) {
-        userService.delete(id);
+        try {
+            Users users= userService.get(id);
+            userService.delete(id);
+        }
+        catch (NoSuchElementException e){
+            return  " no such user exist";
+        }
         return id + "  deleted successfully ";
     }
 
